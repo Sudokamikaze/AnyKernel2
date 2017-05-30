@@ -41,6 +41,9 @@ dump_boot;
 # Ramdisk modifications
 
 # init.mako.rc
+# F2FS FSTAB
+replace_file $ramdisk/fstab.mako fstab.mako
+
 # Add init.sinai.rc
 insert_line init.mako.rc "init.sinai.rc" after "init.mako_tiny.rc" "import init.sinai.rc";
 
