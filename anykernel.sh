@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() {
-kernel.string=Sinai by sudokamikaze
+kernel.string=SINAI-N4 by sudokamikaze @ xda-developers
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
@@ -33,7 +33,12 @@ is_slot_device=0;
 # set permissions for included ramdisk files
 chmod -R 755 $ramdisk
 
-ui_print "Sinai kernel by Sudokamikaze is installing...";
+ui_print "    _____ _____   _____    ____";
+ui_print "   / ___//  _/ | / /   |  /  _/";
+ui_print "   \__ \ / //  |/ / /| |  / /  ";
+ui_print "  ___/ // // /|  / ___ |_/ /   ";
+ui_print " /____/___/_/ |_/_/  |_/___/   ";
+ui_print "Infusing...";
 
 ## AnyKernel install
 dump_boot;
