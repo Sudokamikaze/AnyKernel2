@@ -22,7 +22,6 @@ on post-fs-data
     write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 200000000
 
     # IntelliPlug
-    write /sys/modules/intelli_plug/parameters/intelli_plug_active 1
     write /sys/modules/intelli_plug/parameters/nr_run_hysteresis 8
 
     # IntelliThermal
