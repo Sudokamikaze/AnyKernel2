@@ -20,14 +20,6 @@ on post-fs-data
 
     # GPU
     write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 200000000
-
-    # IntelliPlug
-    write /sys/modules/intelli_plug/parameters/nr_run_hysteresis 8
-
-    # IntelliThermal
-    write /sys/module/msm_thermal/parameters/enabled Y
-    write /sys/module/msm_thermal/parameters/limit_temp_degC 75
-    write /sys/module/msm_thermal/parameters/core_limit_temp_degC 80
     
     # Set ZEN Iosched
     write /sys/block/mmcblk0/queue/scheduler zen    
