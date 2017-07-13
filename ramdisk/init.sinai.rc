@@ -28,6 +28,9 @@ on post-fs-data
     # Set ZEN Iosched
     write /sys/block/mmcblk0/queue/scheduler zen    
 
+    # Disable DYN by default
+    write /sys/module/dyn_hotplug/parameters/enabled 0
+
     # Mako-Hotplug
     write /sys/devices/virtual/misc/mako_hotplug_control/cpufreq_unplug_limit 1242000
     write /sys/devices/virtual/misc/mako_hotplug_control/load_threshold 75
