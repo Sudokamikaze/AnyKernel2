@@ -25,8 +25,8 @@ on post-fs-data
     # GPU
     write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 200000000
     
-    # Set ZEN Iosched
-    write /sys/block/mmcblk0/queue/scheduler zen    
+    # Set MAPLE Iosched
+    write /sys/block/mmcblk0/queue/scheduler maple
 
     # Disable DYN by default
     write /sys/module/dyn_hotplug/parameters/enabled 0
