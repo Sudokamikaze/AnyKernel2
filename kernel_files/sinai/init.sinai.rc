@@ -32,6 +32,9 @@ on post-fs-data
     # Set MAPLE Iosched
     write /sys/block/mmcblk0/queue/scheduler maple
 
+    # Enable StateNotifier bydefault
+    write /sys/module/state_notifier/parameters/enabled Y
+
     # Disable DYN by default
     write /sys/module/dyn_hotplug/parameters/enabled 0
 
