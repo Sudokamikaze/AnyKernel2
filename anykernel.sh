@@ -20,7 +20,7 @@ fi
 } # end properties
 
 # shell variables
-block=/dev/block/platform/msm_sdcc.1/by-name/boot;
+block=/dev/block/platform/sdhci-tegra.3/by-name/LNX;
 is_slot_device=0;
 
 
@@ -47,15 +47,7 @@ dump_boot;
 
 # init.mako.rc
 # F2FS FSTAB
-replace_file $ramdisk/fstab.mako fstab.mako
-
-# Add init.sinai.rc
-insert_line init.mako.rc "init.sinai.rc" after "init.mako_tiny.rc" "import init.sinai.rc";
-
-# Disable mpdecision and thermald (Based on Franco's implementation for Flo)
-replace_section init.mako.rc "service thermald" "group radio" "service thermald /system/bin/thermald\n    class main\n    group radio system\n    disabled";
-replace_section init.mako.rc "service mpdecision" "group root system" "service mpdecision /system/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root system\n    disabled";
-
+replace_file $ramdisk/fstab.grouper fstab.grouper
 
 # Write to boot as ramdisk modifications are done
 write_boot;
