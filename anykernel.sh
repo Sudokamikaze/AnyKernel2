@@ -9,7 +9,7 @@ do.devicecheck=1
 do.modules=0
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=mako
+device.name1=grouper
 
 # Required for possible inline kernel flashing
 if [ ! -f /recovery ] ; then
