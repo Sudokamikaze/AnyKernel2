@@ -53,7 +53,7 @@ insert_line init.mako.rc "init.sinai.rc" after "init.mako_tiny.rc" "import init.
 
 # Disable mpdecision and thermald (Based on Franco's implementation for Flo)
 replace_section init.mako.rc "service thermald" "group radio" "service thermald /system/bin/thermald\n    class main\n    group radio system\n    disabled";
-replace_section init.mako.rc "service mpdecision" "group root system" "service mpdecision /system/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root system\n    disabled"; 
+replace_section init.mako.rc "service mpdecision" "group root readproc system" "service mpdecision /system/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root readproc system\n    disabled";
 
 # Write to boot as ramdisk modifications are done
 write_boot;
