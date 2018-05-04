@@ -8,12 +8,8 @@ kernel.string=DirtyV by bsmitty83 @ xda-developers
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
-do.cleanuponabort=0
-device.name1=maguro
-device.name2=toro
-device.name3=toroplus
-device.name4=
-device.name5=
+do.cleanuponabort=1
+device.name1=mako
 } # end properties
 
 # shell variables
@@ -36,24 +32,21 @@ chown -R root:root $ramdisk/*;
 ## AnyKernel install
 dump_boot;
 
+ui_print "    _____ _____   _____    ____";
+ui_print "   / ___//  _/ | / /   |  /  _/";
+ui_print "   \__ \ / //  |/ / /| |  / /  ";
+ui_print "  ___/ // // /|  / ___ |_/ /   ";
+ui_print " /____/___/_/ |_/_/  |_/___/   ";
+
+
 # begin ramdisk changes
 
-# init.rc
-backup_file init.rc;
-replace_string init.rc "cpuctl cpu,timer_slack" "mount cgroup none /dev/cpuctl cpu" "mount cgroup none /dev/cpuctl cpu,timer_slack";
-append_file init.rc "run-parts" init;
+# Add init.sinai.rc
+insert_line init.mako.rc "init.sinai.rc" after "init.mako_tiny.rc" "import init.sinai.rc";
 
-# init.tuna.rc
-backup_file init.tuna.rc;
-insert_line init.tuna.rc "nodiratime barrier=0" after "mount_all /fstab.tuna" "\tmount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/userdata /data remount nosuid nodev noatime nodiratime barrier=0";
-append_file init.tuna.rc "dvbootscript" init.tuna;
-
-# fstab.tuna
-backup_file fstab.tuna;
-patch_fstab fstab.tuna /system ext4 options "noatime,barrier=1" "noatime,nodiratime,barrier=0";
-patch_fstab fstab.tuna /cache ext4 options "barrier=1" "barrier=0,nomblk_io_submit";
-patch_fstab fstab.tuna /data ext4 options "data=ordered" "nomblk_io_submit,data=writeback";
-append_file fstab.tuna "usbdisk" fstab;
+# Disable mpdecision and thermald (Based on Franco's implementation for Flo)
+replace_section init.mako.rc "service thermald" "group radio" "service thermald /system/bin/thermald\n    class main\n    group radio system\n    disabled";
+replace_section init.mako.rc "service mpdecision" "group root system" "service mpdecision /system/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root system\n    disabled"; 
 
 # end ramdisk changes
 
