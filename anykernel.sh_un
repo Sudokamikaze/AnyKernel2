@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() {
-kernel.string=DirtyV by bsmitty83 @ xda-developers
+kernel.string=SINAI-N4 by sudokamikaze @ xda-developers
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
@@ -13,7 +13,7 @@ device.name1=mako
 } # end properties
 
 # shell variables
-block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;
+block=/dev/block/platform/msm_sdcc.1/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=auto;
 
