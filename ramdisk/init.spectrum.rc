@@ -1,0 +1,131 @@
+# SPECTRUM KERNEL MANAGER
+# Ramdisk file for profile based kernel management
+# Implimentation inspired by Franco's fku profiles
+
+# Initialization
+on property:sys.boot_completed=1
+   # Set default profile on first boot
+   exec u:r:init:s0 root root -- /init.spectrum.sh
+   exec u:r:su:s0 root root -- /init.spectrum.sh
+   # Enable Spectrum support
+   setprop spectrum.support 1
+   # Add kernel name
+   setprop persist.spectrum.kernel SINAI-N4
+
+# Balance (default profile)
+on property:persist.spectrum.profile=0
+    # Set governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor hellsactive
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor hellsactive
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor hellsactive
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor hellsactive
+
+    # Set max freq to lower
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1512000
+    
+    # Decrease GPU freq to 200 MHZ
+    write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 200000000
+
+    # Screen off freq set to lower
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 702000
+
+    # Apply some settings to ASMP hotplug
+    write /sys/kernel/autosmp/conf/cycle_up 1
+    write /sys/kernel/autosmp/conf/cycle_down 1
+    write /sys/kernel/autosmp/conf/delay 70
+
+    # Set arch_power to true
+    write /sys/kernel/sched/arch_power 1
+
+# Performance (based on DrunkSauce Lite)
+on property:persist.spectrum.profile=1
+    # Set governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor elementalx
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor elementalx
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor elementalx
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor elementalx
+    
+    # Set max freq to default
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1512000
+    
+    # Ramp up GPU freq to limits
+    write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 487500000
+    
+    # Set  RQ affinity to 2
+    write /sys/block/mmcblk0/queue/rq_affinity 2
+    
+    # Screen off freq set to lower
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 594000
+
+    # Apply some settings to ASMP hotplug
+    write /sys/kernel/autosmp/conf/cycle_up 0
+    write /sys/kernel/autosmp/conf/cycle_down 2
+    write /sys/kernel/autosmp/conf/delay 300
+
+    # Set arch_power to true
+    write /sys/kernel/sched/arch_power 0
+    
+    # Disable FSYNC
+    write /sys/module/sync/parameters/fsync_enabled N
+
+
+# Battery
+on property:persist.spectrum.profile=2
+    # Set governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor smartmax
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor smartmax
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor smartmax
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor smartmax
+
+    # Set max freq to lower
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1350000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1350000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1350000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1350000
+    
+    # Decrease GPU freq to 120 MHZ
+    write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 128000000
+    
+    # Decrease RQ affinity to 1
+    write /sys/block/mmcblk0/queue/rq_affinity 1
+    
+    # Screen off freq set to lower
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 594000
+
+    # Apply some settings to ASMP hotplug
+    write /sys/kernel/autosmp/conf/cycle_up 1
+    write /sys/kernel/autosmp/conf/cycle_down 0
+    write /sys/kernel/autosmp/conf/delay 250
+
+    # Set arch_power to true
+    write /sys/kernel/sched/arch_power 1
+
+# Gaming
+on property:persist.spectrum.profile=3
+
+    # Set max freq to default
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1512000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1512000
+
+    # Increase to best value for gaming 
+    # Ramp GPU to 400 MHZ
+    write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 400000000
+    
+    # Screen off set to better value
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 918000
+
+    # Apply some settings to ASMP hotplug
+    write /sys/kernel/autosmp/conf/cycle_up 1
+    write /sys/kernel/autosmp/conf/cycle_down 2
+    write /sys/kernel/autosmp/conf/delay 75
+
+    # Set arch_power to false
+    write /sys/kernel/sched/arch_power 0

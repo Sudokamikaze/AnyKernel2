@@ -44,6 +44,9 @@ ui_print " /____/___/_/ |_/_/  |_/___/   ";
 # Add init.sinai.rc
 insert_line init.mako.rc "init.sinai.rc" after "init.mako_tiny.rc" "import init.sinai.rc";
 
+# Add spectrum 
+insert_line init.mako.rc "init.spectrum.rc" after "init.sinai.rc" "import init.spectrum.rc";
+
 # Disable mpdecision and thermald (Based on Franco's implementation for Flo)
 replace_section init.mako.rc "service thermald" "group radio" "service thermald /system/bin/thermald\n    class main\n    group radio system\n    disabled";
 replace_section init.mako.rc "service mpdecision" "group root readproc system" "service mpdecision /system/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root readproc system\n    disabled";
