@@ -48,3 +48,10 @@ on post-fs-data
     write /sys/block/mmcblk0/queue/rq_affinity 2
     write /sys/block/mmcblk0/queue/add_random 0
     write /sys/block/mmcblk0/bdi/min_ratio 5
+
+    # Disable those unneeded wakelocks
+    write /sys/module/wakeup/parameters/enable_msm_hsic_ws N 
+    write /sys/module/wakeup/parameters/enable_bluesleep_ws N 
+    write /sys/module/wakeup/parameters/enable_wlan_rx_wake_ws N 
+    write /sys/module/wakeup/parameters/enable_wlan_ctrl_wake_ws N 
+    write /sys/module/wakeup/parameters/enable_wlan_wake_ws N
