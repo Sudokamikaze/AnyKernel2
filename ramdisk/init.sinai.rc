@@ -32,6 +32,9 @@ on post-fs-data
     write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk 200000000
     write /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor simple
 
+    # Set ASMP as default 
+    write /sys/module/autosmp/parameters/enabled Y
+
     # Set MAPLE Iosched
     write /sys/block/mmcblk0/queue/scheduler maple
 
