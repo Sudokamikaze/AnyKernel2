@@ -42,7 +42,7 @@ ui_print " /____/___/_/ |_/_/  |_/___/   ";
 # begin ramdisk changes
 
 # Add init.sinai.rc
-insert_line init.mako.rc "init.sinai.rc" after "init.mako_tiny.rc" "import init.sinai.rc";
+insert_line init.mako.rc "init.sinai.rc" after "init.mako.usb.rc" "import init.sinai.rc";
 
 # Add spectrum 
 insert_line init.mako.rc "init.spectrum.rc" after "init.sinai.rc" "import init.spectrum.rc";
