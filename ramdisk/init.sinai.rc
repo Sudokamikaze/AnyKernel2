@@ -2,6 +2,9 @@
 # Init script for SINAI-N4 feature specific elements
 #
 
+on boot
+    setprop persist.power.skip_tb 1
+
 on post-fs-data
 
     # Adjust governors/frequencies
