@@ -4,6 +4,7 @@
 
 on boot
     setprop persist.power.skip_tb 1
+    setprop persist.power.skip_st 1
 
 on post-fs-data
 
