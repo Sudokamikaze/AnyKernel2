@@ -49,8 +49,6 @@ replace_section init.mako.rc "service mpdecision" "group root system" "service m
 
 replace_file $ramdisk/fstab.mako fstab.mako
 
-remove_line init.mako.rc "write /dev/cpuctl/cpu.notify_on_migrate 1"
-
 # end ramdisk changes
 
 write_boot;
