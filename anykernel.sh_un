@@ -44,8 +44,8 @@ dump_boot;
 # init.mako.rc
 backup_file init.mako.rc;
 insert_line init.mako.rc 'init.sinai.rc' after 'init.mako.usb.rc' 'import init.sinai.rc';
-replace_section init.mako.rc "service thermald" "group radio" "service thermald /vendor/bin/thermald\n    class main\n    group radio system\n    disabled";
-replace_section init.mako.rc "service mpdecision" "group root system" "service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root readproc system\n    disabled"; 
+replace_section init.mako.rc "service thermald" "group radio system" "service thermald /vendor/bin/thermald\n    class main\n    group radio system\n    disabled";
+replace_section init.mako.rc "service mpdecision" "group root readproc system" "service mpdecision /vendor/bin/mpdecision --no_sleep --avg_comp\n    class main\n    user root\n    group root readproc system\n    disabled"; 
 
 replace_file $ramdisk/fstab.mako fstab.mako
 
